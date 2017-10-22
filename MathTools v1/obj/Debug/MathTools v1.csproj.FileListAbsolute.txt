@@ -1,0 +1,35 @@
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\MathTools v1.exe.config
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\MathTools v1.exe
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\MathTools v1.pdb
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.csprojResolveAssemblyReference.cache
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools_v1.Properties.Resources.resources
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.csproj.GenerateResource.Cache
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.exe
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.pdb
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\Plotting_Try.IntegralCalc.resources
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools_v1.Main.resources
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\alglibnet2.dll
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\NCalc.dll
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.dll
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.WindowsForms.dll
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.pdb
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.xml
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.WindowsForms.pdb
+c:\users\samue\documents\visual studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.WindowsForms.xml
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\MathTools v1.exe.config
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.exe
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.pdb
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\MathTools v1.exe
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\MathTools v1.pdb
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.dll
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.WindowsForms.dll
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.pdb
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.xml
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.WindowsForms.pdb
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\bin\Debug\OxyPlot.WindowsForms.xml
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.csprojResolveAssemblyReference.cache
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\Plotting_Try.IntegralCalc.resources
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools_v1.Main.resources
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools_v1.Properties.Resources.resources
+C:\Users\Sam\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools v1.csproj.GenerateResource.Cache
+C:\Users\samue\Documents\Visual Studio 2015\Projects\MathTools v1\MathTools v1\obj\Debug\MathTools_v1.MatrixCalc.resources
