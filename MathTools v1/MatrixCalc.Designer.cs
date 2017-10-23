@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnlTools = new System.Windows.Forms.Panel();
+            this.cbbOperation = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pnlMatrix = new System.Windows.Forms.Panel();
             this.tbMatrix3 = new System.Windows.Forms.TextBox();
@@ -41,6 +42,7 @@
             this.lblB = new System.Windows.Forms.Label();
             this.lblA = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCalculate = new System.Windows.Forms.Button();
             this.lblMsgB = new System.Windows.Forms.Label();
             this.lblMsgA = new System.Windows.Forms.Label();
             this.pnlMatrix.SuspendLayout();
@@ -54,15 +56,35 @@
             this.pnlTools.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlTools.Location = new System.Drawing.Point(0, 233);
             this.pnlTools.Name = "pnlTools";
-            this.pnlTools.Size = new System.Drawing.Size(416, 80);
+            this.pnlTools.Size = new System.Drawing.Size(429, 80);
             this.pnlTools.TabIndex = 0;
+            // 
+            // cbbOperation
+            // 
+            this.cbbOperation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbbOperation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
+            this.cbbOperation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cbbOperation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbbOperation.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbOperation.ForeColor = System.Drawing.Color.Cyan;
+            this.cbbOperation.FormattingEnabled = true;
+            this.cbbOperation.Items.AddRange(new object[] {
+            "A + B",
+            "A - B",
+            "A * B",
+            "det(A)",
+            "det(C)"});
+            this.cbbOperation.Location = new System.Drawing.Point(286, 8);
+            this.cbbOperation.Name = "cbbOperation";
+            this.cbbOperation.Size = new System.Drawing.Size(85, 23);
+            this.cbbOperation.TabIndex = 0;
             // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(416, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(429, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
@@ -77,7 +99,7 @@
             this.pnlMatrix.Location = new System.Drawing.Point(0, 50);
             this.pnlMatrix.Margin = new System.Windows.Forms.Padding(0);
             this.pnlMatrix.Name = "pnlMatrix";
-            this.pnlMatrix.Size = new System.Drawing.Size(416, 143);
+            this.pnlMatrix.Size = new System.Drawing.Size(429, 143);
             this.pnlMatrix.TabIndex = 3;
             // 
             // tbMatrix3
@@ -85,10 +107,10 @@
             this.tbMatrix3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.tbMatrix3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbMatrix3.ForeColor = System.Drawing.Color.White;
-            this.tbMatrix3.Location = new System.Drawing.Point(268, 0);
+            this.tbMatrix3.Location = new System.Drawing.Point(286, 0);
             this.tbMatrix3.Multiline = true;
             this.tbMatrix3.Name = "tbMatrix3";
-            this.tbMatrix3.Size = new System.Drawing.Size(148, 143);
+            this.tbMatrix3.Size = new System.Drawing.Size(143, 143);
             this.tbMatrix3.TabIndex = 2;
             // 
             // tbMatrix2
@@ -96,10 +118,10 @@
             this.tbMatrix2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.tbMatrix2.Dock = System.Windows.Forms.DockStyle.Left;
             this.tbMatrix2.ForeColor = System.Drawing.Color.White;
-            this.tbMatrix2.Location = new System.Drawing.Point(134, 0);
+            this.tbMatrix2.Location = new System.Drawing.Point(143, 0);
             this.tbMatrix2.Multiline = true;
             this.tbMatrix2.Name = "tbMatrix2";
-            this.tbMatrix2.Size = new System.Drawing.Size(134, 143);
+            this.tbMatrix2.Size = new System.Drawing.Size(143, 143);
             this.tbMatrix2.TabIndex = 1;
             this.tbMatrix2.TextChanged += new System.EventHandler(this.tbMatrix2_TextChanged);
             // 
@@ -111,7 +133,7 @@
             this.tbMatrix1.Location = new System.Drawing.Point(0, 0);
             this.tbMatrix1.Multiline = true;
             this.tbMatrix1.Name = "tbMatrix1";
-            this.tbMatrix1.Size = new System.Drawing.Size(134, 143);
+            this.tbMatrix1.Size = new System.Drawing.Size(143, 143);
             this.tbMatrix1.TabIndex = 0;
             this.tbMatrix1.TextChanged += new System.EventHandler(this.tbMatrix1_TextChanged);
             // 
@@ -128,7 +150,7 @@
             this.panel1.MaximumSize = new System.Drawing.Size(0, 26);
             this.panel1.MinimumSize = new System.Drawing.Size(0, 26);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(416, 26);
+            this.panel1.Size = new System.Drawing.Size(429, 26);
             this.panel1.TabIndex = 2;
             // 
             // lblEquals
@@ -194,21 +216,38 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel2.Controls.Add(this.btnCalculate);
+            this.panel2.Controls.Add(this.cbbOperation);
             this.panel2.Controls.Add(this.lblMsgB);
             this.panel2.Controls.Add(this.lblMsgA);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 193);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(416, 40);
+            this.panel2.Size = new System.Drawing.Size(429, 40);
             this.panel2.TabIndex = 4;
+            // 
+            // btnCalculate
+            // 
+            this.btnCalculate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCalculate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalculate.ForeColor = System.Drawing.Color.Cyan;
+            this.btnCalculate.Location = new System.Drawing.Point(374, 8);
+            this.btnCalculate.Margin = new System.Windows.Forms.Padding(0);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(52, 23);
+            this.btnCalculate.TabIndex = 2;
+            this.btnCalculate.Text = "Calc!";
+            this.btnCalculate.UseVisualStyleBackColor = false;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
             // lblMsgB
             // 
             this.lblMsgB.AutoSize = true;
             this.lblMsgB.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMsgB.ForeColor = System.Drawing.Color.Cyan;
-            this.lblMsgB.Location = new System.Drawing.Point(179, 11);
+            this.lblMsgB.Location = new System.Drawing.Point(182, 10);
             this.lblMsgB.Name = "lblMsgB";
             this.lblMsgB.Size = new System.Drawing.Size(60, 19);
             this.lblMsgB.TabIndex = 1;
@@ -230,7 +269,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(416, 313);
+            this.ClientSize = new System.Drawing.Size(429, 313);
             this.Controls.Add(this.pnlMatrix);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -238,7 +277,7 @@
             this.Controls.Add(this.pnlTools);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(416, 292);
+            this.MinimumSize = new System.Drawing.Size(429, 292);
             this.Name = "MatrixCalc";
             this.Text = "MatrixCalc";
             this.Resize += new System.EventHandler(this.MatrixCalc_Resize);
@@ -270,5 +309,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblMsgB;
         private System.Windows.Forms.Label lblMsgA;
+        private System.Windows.Forms.ComboBox cbbOperation;
+        private System.Windows.Forms.Button btnCalculate;
     }
 }
