@@ -22,6 +22,14 @@ namespace MathTools_v1
         public const int HT_CAPTION = 0x2;
         public Matrixx A = new Matrixx();
         public Matrixx B = new Matrixx();
+        public Matrixx Aorigin = new Matrixx();
+        public Matrixx Borigin = new Matrixx();
+        public Matrixx C = new Matrixx();
+        public int Digits = 3;
+        public double Determinant;
+        public char Cstate;
+        public char RanIntReal;
+        public char RanMatrixAorB;
 
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
@@ -36,6 +44,7 @@ namespace MathTools_v1
             ResizeControls();
             lblMsgA.Text = "not a matrix";
             lblMsgB.Text = "not a matrix";
+            lblOperator.Text = "";
         }
         #endregion
 
@@ -48,11 +57,13 @@ namespace MathTools_v1
         private void tbMatrix1_TextChanged(object sender, EventArgs e)
         {
             A = GetMatrixFromTb(ref lblMsgA, tbMatrix1);
+            ResizeControls();
         }
 
         private void tbMatrix2_TextChanged(object sender, EventArgs e)
         {
             B = GetMatrixFromTb(ref lblMsgB, tbMatrix2);
+            ResizeControls();
         }
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
@@ -62,7 +73,6 @@ namespace MathTools_v1
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
-
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -70,25 +80,123 @@ namespace MathTools_v1
             switch (cbbOperation.Text)
             {
                 case "A + B":
-                    tbMatrix3.Text = Sum(A, B).GetAllValues();
+                    C = Sum(A, B);
+                    Cstate = 'm';
                     break;
                 case "A - B":
-                    tbMatrix3.Text = Sub(A, B).GetAllValues();
+                    C = Sub(A, B);
+                    Cstate = 'm';
                     break;
                 case "A * B":
-                    tbMatrix3.Text = Multiplication(A, B).GetAllValues();
+                    C = Multiplication(A, B);
+                    Cstate = 'm';
                     break;
                 case "det(A)":
-                    tbMatrix3.Text = Det(A).ToString();
+                    Determinant = Det(A);
+                    Cstate = 's';
                     break;
                 case "det(B)":
-                    tbMatrix3.Text = Det(B).ToString();
+                    Determinant = Det(B);
+                    Cstate = 's';
                     break;
                 default:
-                    MessageBox.Show("Select an operation!");
                     break;
             }
+            UpdateTbxs();
         }
+
+        private void cbbOperation_TextChanged(object sender, EventArgs e)
+        {
+            switch (cbbOperation.Text)
+            {
+                case "A + B":
+                    lblOperator.Text = "+";
+                    break;
+                case "A - B":
+                    lblOperator.Text = "-";
+                    break;
+                case "A * B":
+                    lblOperator.Text = "*";
+                    break;
+                default:
+                    lblOperator.Text = string.Empty;
+                    break;
+            }
+            ResizeControls();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Digits = (int) numericUpDown1.Value;
+                if (((A.DimI == B.DimI)&(A.DimJ == B.DimJ) & (cbbOperation.Text == "A + B" || cbbOperation.Text == "A - B")) || (A.DimJ == B.DimI) & 
+                    cbbOperation.Text == "A * B")
+                {
+                    switch (cbbOperation.Text)
+                    {
+                        case "A + B":
+                            C = Sum(A, B);
+                            Cstate = 'm';
+                            break;
+                        case "A - B":
+                            C = Sub(A, B);
+                            Cstate = 'm';
+                            break;
+                        case "A * B":
+                            C = Multiplication(A, B);
+                            Cstate = 'm';
+                            break;
+                        case "det(A)":
+                            Determinant = Det(A);
+                            Cstate = 's';
+                            break;
+                        case "det(B)":
+                            Determinant = Det(B);
+                            Cstate = 's';
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+                UpdateTbxs();
+
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                switch (RanMatrixAorB)
+                {
+                    case 'A':
+                        Aorigin = RandomMatrix(int.Parse(tbRanMatrixM.Text), int.Parse(tbRanMatrixN.Text), RanIntReal, int.Parse(tbRanMatrixRanFrom.Text),
+                            int.Parse(tbRanMatrixRanTo.Text));
+                        tbMatrix1.Text = Aorigin.GetAllValues(Digits);
+                        break;
+                    case 'B':
+                        Borigin = RandomMatrix(int.Parse(tbRanMatrixM.Text), int.Parse(tbRanMatrixN.Text), RanIntReal, int.Parse(tbRanMatrixRanFrom.Text),
+                            int.Parse(tbRanMatrixRanTo.Text));
+                        tbMatrix2.Text = Borigin.GetAllValues(Digits);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                //ignored;
+            }
+            
+        }
+        
+       
         #endregion
 
         #region Methods
@@ -102,6 +210,8 @@ namespace MathTools_v1
             lblB.Left = 3 * pnlMatrix.Width / 6 - 10 - lblB.Width / 2;
             lblEquals.Left = 2 * pnlMatrix.Width / 3 - 10;
             lblC.Left = 5 * pnlMatrix.Width / 6 - 10;
+            lblMsgA.Left = pnlMatrix.Width / 6 - 10 - lblMsgA.Width / 2;
+            lblMsgB.Left = 3 * pnlMatrix.Width / 6 - 10 - lblMsgB.Width / 2;
         }
         
         private Matrixx StrToMtrx(string str)
@@ -109,14 +219,14 @@ namespace MathTools_v1
             if (!string.IsNullOrEmpty(str))
             {
                 var substr = str.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-                var matrix = new Matrixx(substr.Length, substr[0].Split(' ').Length);
-                var subSplit = substr[0].Split(' ');
+                var matrix = new Matrixx(substr.Length, substr[0].Trim().Split(' ').Length);
+                var subSplit = substr[0].Trim().Split(' ');
                 for (int i = 0; i < substr.Length; i++)
                 {
                     for (int j = 0; j < subSplit.Length; j++)
                     {
-                        matrix[i, j] = double.Parse(!string.IsNullOrWhiteSpace(substr[i].Split(' ')[j])
-                                ? substr[i].Split(' ')[j] : "0");
+                        matrix.Data[i, j] = double.Parse(!string.IsNullOrWhiteSpace(substr[i].Trim().Split(' ')[j])
+                            ? substr[i].Trim().Split(' ')[j] : "0");
                     }
                 }
                 return matrix;
@@ -142,10 +252,9 @@ namespace MathTools_v1
             {
                 string[] matrixInputTextSplit = matrixInputText.Split(new Char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 int count = 0;
-
                 for (int i = 0; i < matrixInputTextSplit.Length; i++)
                 {
-                    string[] matrixInputTextSplitSecondary = matrixInputTextSplit[i].Split(' ');
+                    string[] matrixInputTextSplitSecondary = matrixInputTextSplit[i].Trim().Split(' ');
                     if (i == 0) count = matrixInputTextSplitSecondary.Length;
                     else if (count != matrixInputTextSplitSecondary.Length)
                     {
@@ -174,13 +283,55 @@ namespace MathTools_v1
                     }
                     catch
                     {
-                        MessageBox.Show(matrixInputText);
                         label.Text = "error";
                         label.ForeColor = Color.Red;
                     }
                 }
                 return new Matrixx(1, 1);
             }
+        }
+
+        private void UpdateTbxs()
+        {
+            if (Cstate == 'm')
+            {
+                tbMatrix3.Text = C.GetAllValues(Digits);
+            }
+            else if (Cstate == 's')
+            {
+                tbMatrix3.Text = Determinant.ToString();
+            }
+            tbMatrix1.Text = Aorigin.GetAllValues(Digits);
+            tbMatrix2.Text = Borigin.GetAllValues(Digits);
+
+        }
+
+        private Matrixx RandomMatrix(int m, int n, char num, int? from, int? to)
+        {
+            var rdm = new Random();
+            var matrix = new Matrixx(m, n);
+            if (!from.HasValue || !to.HasValue)
+            {
+                from = -10;
+                to = 10;
+            }
+            var scale = to - from;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (num == 'r')
+                    {
+                        var sign = Math.Sign(rdm.Next());
+                        matrix.Data[i, j] = Convert.ToDouble(from + rdm.NextDouble() * scale);
+                    }
+                    else if (num == 'i')
+                    {
+                        matrix.Data[i, j] = rdm.Next((int)from, (int)to);
+                    }
+                }
+            }
+            return matrix;
         }
         #endregion
 
@@ -239,11 +390,11 @@ namespace MathTools_v1
                 }
                 return matrix;
             }
-            MessageBox.Show("The 2nd dimension of A is not equal to the 1st dimension of B!");
+            MessageBox.Show("Dimension 2 of A is not the same as Dimension 1 of B!");
             return new Matrixx();
         }
 
-        private double Det(Matrixx a)
+        private static double Det(Matrixx a)
         {
             int n = int.Parse(System.Math.Sqrt(a.Data.Length).ToString());
             int nm1 = n - 1;
@@ -264,6 +415,33 @@ namespace MathTools_v1
                 det = det * a.Data[i, i];
             return det;
         }
+
         #endregion
+
+        private void chbSetReal_Click(object sender, EventArgs e)
+        {
+            RanIntReal = 'r';
+            chbSetInteger.Checked = false;
+            chbSetReal.Checked = true;
+        }
+
+        private void chbSetInteger_Click(object sender, EventArgs e)
+        {
+            RanIntReal = 'i';
+            chbSetReal.Checked = false;
+            chbSetInteger.Checked = true;
+        }
+
+        private void cbSelectA_Click(object sender, EventArgs e)
+        {
+            RanMatrixAorB = 'A';
+            cbSelectB.Checked = false;
+        }
+
+        private void cbSelectB_Click(object sender, EventArgs e)
+        {
+            RanMatrixAorB = 'B';
+            cbSelectA.Checked = false;
+        }
     }
 }

@@ -75,14 +75,15 @@
             // integralCalculatorToolStripMenuItem
             // 
             this.integralCalculatorToolStripMenuItem.Name = "integralCalculatorToolStripMenuItem";
-            this.integralCalculatorToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.integralCalculatorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.integralCalculatorToolStripMenuItem.Text = "Integral Calculator";
             this.integralCalculatorToolStripMenuItem.Click += new System.EventHandler(this.integralCalculatorToolStripMenuItem_Click);
             // 
             // matrixCalcToolStripMenuItem
             // 
             this.matrixCalcToolStripMenuItem.Name = "matrixCalcToolStripMenuItem";
-            this.matrixCalcToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.matrixCalcToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.matrixCalcToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.matrixCalcToolStripMenuItem.Text = "Matrix Calc";
             this.matrixCalcToolStripMenuItem.Click += new System.EventHandler(this.matrixCalcToolStripMenuItem_Click);
             // 

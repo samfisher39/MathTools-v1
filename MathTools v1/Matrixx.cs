@@ -41,14 +41,15 @@ namespace MathTools_v1
             set { Data[i, j] = value; }
         }
 
-        public string GetAllValues()
+        public string GetAllValues(int digits)
         {
-            string r = String.Empty;
-            for (int i = 0; i < this.DimI; i++)
+            var tempmatrix = this.Data;
+            var r = string.Empty;
+            for (var i = 0; i < this.DimI; i++)
             {
-                for (int j = 0; j < DimJ; j++)
+                for (var j = 0; j < this.DimJ; j++)
                 {
-                    r += (j == DimJ -1) ? this[i, j].ToString() : (this[i, j].ToString() + " ");
+                    r += (j == DimJ -1) ? Math.Round(tempmatrix[i, j], digits).ToString() : (Math.Round(tempmatrix[i, j], digits).ToString() + " ");
                 }
                 r += Environment.NewLine;
             }
