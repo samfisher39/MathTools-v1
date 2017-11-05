@@ -4,6 +4,9 @@ using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using NCalc;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace MathTools_v1
 {

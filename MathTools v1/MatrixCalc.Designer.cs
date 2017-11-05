@@ -139,6 +139,7 @@
             this.tbRanMatrixRanTo.Name = "tbRanMatrixRanTo";
             this.tbRanMatrixRanTo.Size = new System.Drawing.Size(56, 19);
             this.tbRanMatrixRanTo.TabIndex = 7;
+            this.tbRanMatrixRanTo.Text = "10";
             this.tbRanMatrixRanTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tbRanMatrixRanFrom
@@ -151,6 +152,7 @@
             this.tbRanMatrixRanFrom.Name = "tbRanMatrixRanFrom";
             this.tbRanMatrixRanFrom.Size = new System.Drawing.Size(56, 19);
             this.tbRanMatrixRanFrom.TabIndex = 6;
+            this.tbRanMatrixRanFrom.Text = "-10";
             this.tbRanMatrixRanFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel5
@@ -205,6 +207,7 @@
             this.tbRanMatrixN.Name = "tbRanMatrixN";
             this.tbRanMatrixN.Size = new System.Drawing.Size(32, 19);
             this.tbRanMatrixN.TabIndex = 3;
+            this.tbRanMatrixN.Text = "3";
             this.tbRanMatrixN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
@@ -270,6 +273,7 @@
             this.tbRanMatrixM.Name = "tbRanMatrixM";
             this.tbRanMatrixM.Size = new System.Drawing.Size(32, 19);
             this.tbRanMatrixM.TabIndex = 2;
+            this.tbRanMatrixM.Text = "3";
             this.tbRanMatrixM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
@@ -314,7 +318,7 @@
             this.lblRound.AutoSize = true;
             this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRound.ForeColor = System.Drawing.Color.Cyan;
-            this.lblRound.Location = new System.Drawing.Point(371, 12);
+            this.lblRound.Location = new System.Drawing.Point(389, 98);
             this.lblRound.Name = "lblRound";
             this.lblRound.Size = new System.Drawing.Size(110, 16);
             this.lblRound.TabIndex = 1;
@@ -323,13 +327,14 @@
             // numericUpDown1
             // 
             this.numericUpDown1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDown1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDown1.ForeColor = System.Drawing.Color.White;
-            this.numericUpDown1.Location = new System.Drawing.Point(487, 12);
+            this.numericUpDown1.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.numericUpDown1.Location = new System.Drawing.Point(505, 95);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.numericUpDown1.Size = new System.Drawing.Size(52, 21);
+            this.numericUpDown1.Size = new System.Drawing.Size(42, 22);
             this.numericUpDown1.TabIndex = 30;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -353,7 +358,11 @@
             "A - B",
             "A * B",
             "det(A)",
-            "det(B)"});
+            "det(B)",
+            "transpose A",
+            "transpose B",
+            "Diagonalize A",
+            "QR Decomp"});
             this.cbbOperation.Location = new System.Drawing.Point(368, 7);
             this.cbbOperation.Name = "cbbOperation";
             this.cbbOperation.Size = new System.Drawing.Size(120, 23);
@@ -368,7 +377,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(552, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
             // 
             // pnlMatrix
             // 

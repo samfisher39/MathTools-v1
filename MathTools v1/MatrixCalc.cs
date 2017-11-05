@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,8 +19,6 @@ namespace MathTools_v1
     public partial class MatrixCalc : Form
     {
         #region vars
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
         public Matrixx A = new Matrixx();
         public Matrixx B = new Matrixx();
         public Matrixx Aorigin = new Matrixx();
@@ -30,11 +29,8 @@ namespace MathTools_v1
         public char Cstate;
         public char RanIntReal;
         public char RanMatrixAorB;
-
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
+        public Matrixx R = new Matrixx();
+        public Matrixx Q = new Matrixx();
         #endregion
 
         #region Initializers
@@ -46,6 +42,7 @@ namespace MathTools_v1
             lblMsgB.Text = "not a matrix";
             lblOperator.Text = "";
         }
+        
         #endregion
 
         #region Events
@@ -66,17 +63,10 @@ namespace MathTools_v1
             ResizeControls();
         }
 
-        private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-
         private void btnCalculate_Click(object sender, EventArgs e)
         {
+            Aorigin = A;
+            Borigin = B;
             switch (cbbOperation.Text)
             {
                 case "A + B":
@@ -98,6 +88,28 @@ namespace MathTools_v1
                 case "det(B)":
                     Determinant = Det(B);
                     Cstate = 's';
+                    break;
+                case "Diagonalize A":
+                    QRDecomp(A, out Q, out R, tbMatrix2);
+                    C = R;
+                    Cstate = 'm';
+                    break;
+                case "transpose A":
+                    C = Transpose(A);
+                    Cstate = 'm';
+                    break;
+                case "transpose B":
+                    C = Transpose(B);
+                    Cstate = 'm';
+                    break;
+                case "QR Decomp":
+                    for (int i = 0; i < 1E3; i++)
+                    {
+                        QRDecomp(A, out Q, out R, tbMatrix2);
+                        A = Multiplication(R, Transpose(Q));
+                    }
+                    C = A;
+                    Cstate = 'e';
                     break;
                 default:
                     break;
@@ -195,8 +207,32 @@ namespace MathTools_v1
             }
             
         }
-        
-       
+
+        private void chbSetReal_Click(object sender, EventArgs e)
+        {
+            RanIntReal = 'r';
+            chbSetInteger.Checked = false;
+            chbSetReal.Checked = true;
+        }
+
+        private void chbSetInteger_Click(object sender, EventArgs e)
+        {
+            RanIntReal = 'i';
+            chbSetReal.Checked = false;
+            chbSetInteger.Checked = true;
+        }
+
+        private void cbSelectA_Click(object sender, EventArgs e)
+        {
+            RanMatrixAorB = 'A';
+            cbSelectB.Checked = false;
+        }
+
+        private void cbSelectB_Click(object sender, EventArgs e)
+        {
+            RanMatrixAorB = 'B';
+            cbSelectA.Checked = false;
+        }
         #endregion
 
         #region Methods
@@ -301,9 +337,15 @@ namespace MathTools_v1
             {
                 tbMatrix3.Text = Determinant.ToString();
             }
+            else if (Cstate == 'e')
+            {
+                for (int i = 0; i < C.DimI; i++)
+                {
+                    tbMatrix3.Text += string.Format("Lambda_{0} = {1}, ", i, C[i,i]);
+                }
+            }
             tbMatrix1.Text = Aorigin.GetAllValues(Digits);
             tbMatrix2.Text = Borigin.GetAllValues(Digits);
-
         }
 
         private Matrixx RandomMatrix(int m, int n, char num, int? from, int? to)
@@ -333,10 +375,20 @@ namespace MathTools_v1
             }
             return matrix;
         }
+
+        private Matrixx EinheitsMatrix(int dimj)
+        {
+            var matrix = new Matrixx(dimj, dimj);
+            for (int i = 0; i < dimj; i++)
+            {
+                matrix[i, i] = 1;
+            }
+            return matrix;
+        }
         #endregion
 
         #region MatrixOps
-        private Matrixx Sum(Matrixx a, Matrixx B)
+        private static Matrixx Sum(Matrixx a, Matrixx B)
         {
             var matrix = new Matrixx(a.DimI, a.DimJ);
             if (a.DimI == B.DimI & a.DimJ == B.DimJ)
@@ -354,7 +406,7 @@ namespace MathTools_v1
             return new Matrixx();
         }
 
-        private Matrixx Sub(Matrixx a, Matrixx B)
+        private static Matrixx Sub(Matrixx a, Matrixx B)
         {
             var matrix = new Matrixx(a.DimI, a.DimJ);
             if (a.DimI == B.DimI & a.DimJ == B.DimJ)
@@ -372,7 +424,7 @@ namespace MathTools_v1
             return new Matrixx();
         }
 
-        private Matrixx Multiplication(Matrixx a, Matrixx b)
+        private static Matrixx Multiplication(Matrixx a, Matrixx b)
         {
             var matrix = new Matrixx(a.DimI, b.DimJ);
             if (a.DimJ == b.DimI)
@@ -416,32 +468,93 @@ namespace MathTools_v1
             return det;
         }
 
+        private static Matrixx Transpose(Matrixx a)
+        {
+            var result = new Matrixx(a.DimJ, a.DimI);
+            for (int i = 0; i < a.DimI; i++)
+            {
+                for (int j = 0; j < a.DimJ; j++)
+                {
+                    result[j, i] = a[i, j];
+                }
+            }
+            return result;
+        }
+
+        //private static Matrixx Triangularize(Matrixx A, TextBox debugBox)
+        //{
+        //    var watch = System.Diagnostics.Stopwatch.StartNew();
+        //    var result = A;
+        //    var resultlist = new List<Matrixx>();
+        //    for (var i = 1; i < A.DimI; i++)
+        //    {
+        //        for (var k = 0; k <= i - 1; k++)
+        //        {
+        //            if (!(Math.Abs(result[i, k]) > 0.000000001)) continue;
+        //            var gik = new Matrixx(A.DimJ, A.DimJ);
+        //            var r = Math.Sqrt(Math.Pow(result[k, k], 2) + Math.Pow(result[i, k], 2));
+        //            var c = result[k, k] / r;
+        //            var s = result[i, k] / r;
+        //            for (var z = 0; z < A.DimJ; z++)
+        //            {
+        //                gik[z, z] = 1;
+        //                for (var y = 0; y < A.DimJ; y++)
+        //                {
+        //                    if (z == i & y == i) gik[z, y] = c;
+        //                    if (z == k & y == k) gik[z, y] = c;
+        //                    if (z == k & y == i) gik[z, y] = s;
+        //                    if (z == i & y == k) gik[z, y] = -s;
+        //                }
+        //            }
+        //            resultlist.Add(gik);
+        //            result = Multiplication(gik, result);
+        //        }
+        //    }
+        //    resultlist.Add(result);
+        //    watch.Stop();
+        //    var resultstring = $"Time needed: {watch.ElapsedMilliseconds}";
+        //    debugBox.Text = resultstring;
+        //    //MessageBox.Show(resultstring);
+        //    //return resultlist;
+        //    return resultlist.Last();
+        //}
+
+        private void QRDecomp(Matrixx A, out Matrixx Q, out Matrixx R, TextBox debugBox)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            R = A;
+            var Qlist = new List<Matrixx>();
+            Q = EinheitsMatrix(A.DimJ);
+            for (var i = 1; i < A.DimI; i++)
+            {
+                for (var k = 0; k <= i - 1; k++)
+                {
+                    if (!(Math.Abs(R[i, k]) > 0.000000001)) continue;
+                    var gik = new Matrixx(A.DimJ, A.DimJ);
+                    var r = Math.Sqrt(Math.Pow(R[k, k], 2) + Math.Pow(R[i, k], 2));
+                    var c = R[k, k] / r;
+                    var s = R[i, k] / r;
+                    for (var z = 0; z < A.DimJ; z++)
+                    {
+                        gik[z, z] = 1;
+                        for (var y = 0; y < A.DimJ; y++)
+                        {
+                            if (z == i & y == i) gik[z, y] = c;
+                            if (z == k & y == k) gik[z, y] = c;
+                            if (z == k & y == i) gik[z, y] = s;
+                            if (z == i & y == k) gik[z, y] = -s;
+                        }
+                    }
+                    Qlist.Add(gik);
+                    R = Multiplication(gik, R);
+                    Q = Multiplication(gik, Q);
+                }
+            }
+            watch.Stop();
+            var resultstring = $"Time needed: {watch.ElapsedMilliseconds}";
+            debugBox.Text = resultstring;
+            //MessageBox.Show(resultstring);
+        }
         #endregion
-
-        private void chbSetReal_Click(object sender, EventArgs e)
-        {
-            RanIntReal = 'r';
-            chbSetInteger.Checked = false;
-            chbSetReal.Checked = true;
-        }
-
-        private void chbSetInteger_Click(object sender, EventArgs e)
-        {
-            RanIntReal = 'i';
-            chbSetReal.Checked = false;
-            chbSetInteger.Checked = true;
-        }
-
-        private void cbSelectA_Click(object sender, EventArgs e)
-        {
-            RanMatrixAorB = 'A';
-            cbSelectB.Checked = false;
-        }
-
-        private void cbSelectB_Click(object sender, EventArgs e)
-        {
-            RanMatrixAorB = 'B';
-            cbSelectA.Checked = false;
-        }
     }
 }

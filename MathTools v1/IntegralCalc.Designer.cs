@@ -30,14 +30,14 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.plot1 = new OxyPlot.WindowsForms.PlotView();
+            this.btnSetB = new System.Windows.Forms.Button();
+            this.btnSetA = new System.Windows.Forms.Button();
+            this.tbB = new System.Windows.Forms.TextBox();
+            this.tbA = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.rtbIntegralInfo = new System.Windows.Forms.RichTextBox();
             this.rtbData = new System.Windows.Forms.RichTextBox();
-            this.tbA = new System.Windows.Forms.TextBox();
-            this.tbB = new System.Windows.Forms.TextBox();
-            this.btnSetA = new System.Windows.Forms.Button();
-            this.btnSetB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -46,6 +46,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
@@ -58,7 +59,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.splitContainer1.Panel2.Controls.Add(this.btnSetB);
             this.splitContainer1.Panel2.Controls.Add(this.btnSetA);
             this.splitContainer1.Panel2.Controls.Add(this.tbB);
@@ -74,6 +75,7 @@
             // 
             // plot1
             // 
+            this.plot1.BackColor = System.Drawing.SystemColors.Control;
             this.plot1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plot1.Location = new System.Drawing.Point(0, 0);
             this.plot1.Name = "plot1";
@@ -84,6 +86,44 @@
             this.plot1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
             this.plot1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.plot1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // btnSetB
+            // 
+            this.btnSetB.Location = new System.Drawing.Point(219, 355);
+            this.btnSetB.Name = "btnSetB";
+            this.btnSetB.Size = new System.Drawing.Size(61, 23);
+            this.btnSetB.TabIndex = 7;
+            this.btnSetB.Text = "Set b";
+            this.btnSetB.UseVisualStyleBackColor = true;
+            this.btnSetB.Click += new System.EventHandler(this.btnSetB_Click);
+            // 
+            // btnSetA
+            // 
+            this.btnSetA.Location = new System.Drawing.Point(78, 355);
+            this.btnSetA.Name = "btnSetA";
+            this.btnSetA.Size = new System.Drawing.Size(61, 23);
+            this.btnSetA.TabIndex = 6;
+            this.btnSetA.Text = "Set a";
+            this.btnSetA.UseVisualStyleBackColor = true;
+            this.btnSetA.Click += new System.EventHandler(this.btnSetA_Click);
+            // 
+            // tbB
+            // 
+            this.tbB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tbB.ForeColor = System.Drawing.Color.Cyan;
+            this.tbB.Location = new System.Drawing.Point(145, 357);
+            this.tbB.Name = "tbB";
+            this.tbB.Size = new System.Drawing.Size(68, 20);
+            this.tbB.TabIndex = 5;
+            // 
+            // tbA
+            // 
+            this.tbA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tbA.ForeColor = System.Drawing.Color.Cyan;
+            this.tbA.Location = new System.Drawing.Point(4, 357);
+            this.tbA.Name = "tbA";
+            this.tbA.Size = new System.Drawing.Size(68, 20);
+            this.tbA.TabIndex = 4;
             // 
             // button1
             // 
@@ -97,6 +137,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox1.ForeColor = System.Drawing.Color.Cyan;
             this.textBox1.Location = new System.Drawing.Point(4, 383);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(209, 20);
@@ -104,7 +146,9 @@
             // 
             // rtbIntegralInfo
             // 
+            this.rtbIntegralInfo.BackColor = System.Drawing.Color.Black;
             this.rtbIntegralInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.rtbIntegralInfo.ForeColor = System.Drawing.Color.Cyan;
             this.rtbIntegralInfo.Location = new System.Drawing.Point(0, 409);
             this.rtbIntegralInfo.Name = "rtbIntegralInfo";
             this.rtbIntegralInfo.Size = new System.Drawing.Size(286, 119);
@@ -115,54 +159,22 @@
             // 
             this.rtbData.BackColor = System.Drawing.Color.Black;
             this.rtbData.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rtbData.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.rtbData.ForeColor = System.Drawing.Color.Cyan;
             this.rtbData.Location = new System.Drawing.Point(0, 0);
             this.rtbData.Name = "rtbData";
             this.rtbData.Size = new System.Drawing.Size(286, 349);
             this.rtbData.TabIndex = 0;
             this.rtbData.Text = "";
             // 
-            // tbA
-            // 
-            this.tbA.Location = new System.Drawing.Point(4, 357);
-            this.tbA.Name = "tbA";
-            this.tbA.Size = new System.Drawing.Size(68, 20);
-            this.tbA.TabIndex = 4;
-            // 
-            // tbB
-            // 
-            this.tbB.Location = new System.Drawing.Point(145, 357);
-            this.tbB.Name = "tbB";
-            this.tbB.Size = new System.Drawing.Size(68, 20);
-            this.tbB.TabIndex = 5;
-            // 
-            // btnSetA
-            // 
-            this.btnSetA.Location = new System.Drawing.Point(78, 355);
-            this.btnSetA.Name = "btnSetA";
-            this.btnSetA.Size = new System.Drawing.Size(61, 23);
-            this.btnSetA.TabIndex = 6;
-            this.btnSetA.Text = "Set a";
-            this.btnSetA.UseVisualStyleBackColor = true;
-            this.btnSetA.Click += new System.EventHandler(this.btnSetA_Click);
-            // 
-            // btnSetB
-            // 
-            this.btnSetB.Location = new System.Drawing.Point(219, 355);
-            this.btnSetB.Name = "btnSetB";
-            this.btnSetB.Size = new System.Drawing.Size(61, 23);
-            this.btnSetB.TabIndex = 7;
-            this.btnSetB.Text = "Set b";
-            this.btnSetB.UseVisualStyleBackColor = true;
-            this.btnSetB.Click += new System.EventHandler(this.btnSetB_Click);
-            // 
-            // Form1
+            // IntegralCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(792, 530);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "IntegralCalc";
             this.Text = "Form1";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
